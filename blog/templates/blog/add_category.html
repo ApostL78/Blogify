@@ -1,0 +1,54 @@
+{% include 'base.html' %}
+
+{% block content %}
+    <div class="m-5">
+        <h1>Добавления категории</h1>
+
+        <form action="{% url 'add_category' %}" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+
+            {{ form.non_field.errors }}
+            {{ form.as_p }}
+
+
+            {% comment %}
+    {{ form.non_field.errors }}
+
+    <div class="mb-3">
+
+        <label class="form-label" for="{{ form.title.id_for_label }}">Название: </label>
+        {{ form.title }}
+        <div class="invalid-feedback">
+            {{ form.title.errors }}
+        </div>
+
+        <label class="form-label" for="{{ form.content.id_for_label }}">Текст: </label>
+        {{ form.task }}
+        <div class="invalid-feedback">
+            {{ form.task.errors }}
+        </div>
+
+
+        <label class="form-label" for="{{ form.content.id_for_label }}">Состояние: </label>
+        {{ form.is_published }}
+        <div class="invalid-feedback">
+            {{ form.is_published.errors }}
+        </div>
+
+        <label class="form-label" for="{{ form.content.id_for_label }}">Категория: </label>
+        {{ form.category }}
+        <div class="invalid-feedback">
+            {{ form.category.errors }}
+        </div>
+
+    </div>
+    {% endcomment %}
+
+            <button class="btn btn-primary btn-block" type="submit">Добавить
+                категорию
+            </button>
+
+
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% include 'base.html' %}
+
+{% block content %}
+    <div class="m-5">
+        <h1>Изменение новости</h1>
+
+        <form action="{% url 'post_update' post.id %}" enctype="multipart/form-data"
+              method="post">
+            {% csrf_token %}
+            <input type="hidden" name="author" id="id_author" value="{{ user.id }}">
+            {{ form.non_field.errors }}
+
+            <div class="mb-3">
+
+                <label class="form-label" for="{{ form.title.id_for_label }}">Название: </label>
+                {{ form.title }}
+                <div class="invalid-feedback">
+                    {{ form.title.errors }}
+                </div>
+
+                <label class="form-label" for="{{ form.content.id_for_label }}">Текст: </label>
+                {{ form.content }}
+                <div class="invalid-feedback">
+                    {{ form.task.errors }}
+                </div>
+
+                <label class="form-label" for="{{ form.content.id_for_label }}">Категория: </label>
+                {{ form.category }}
+                <div class="invalid-feedback">
+                    {{ form.category.errors }}
+                </div>
+
+                <label class="form-label mt-3" for="{{ form.content.id_for_label }}">Фото: </label>
+                {{ form.photo }}
+                <div class="invalid-feedback">
+                    {{ form.photo.errors }}
+                </div>
+
+            </div>
+
+            <label class="form-label" for="{{ form.content.id_for_label }}">Опубликовать: </label>
+                {{ form.is_published }}
+                <br>
+                <div class="invalid-feedback">
+                    {{ form.is_published.errors }}
+                </div>
+
+            <button class="btn btn-primary btn-block" type="submit">Изменить
+            </button>
+
+
+        </form>
+    </div>
+{% endblock %}

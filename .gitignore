@@ -1,0 +1,6 @@
+.venv/
+media/
+/static/admin/*
+/BlogCW/static/admin
+db.sqlite3
+.idea

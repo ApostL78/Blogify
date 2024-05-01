@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    <header class="masthead">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class=" col-md-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h3 class=" site-heading my-4 mt-3"> Welcome to my
+                            awesome Blog </h3>
+                        <p class="">We Love Django As much as you do &nbsp
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            {% block sidebar %}
+                {% include 'blog/sidebar.html' %}
+            {% endblock sidebar %}
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-8 mt-3 left">
+                {% if user.is_authenticated %}
+                	<div class="d-flex align-items-center mb-3 {% if not post_list %}
+                        justify-content-between
+                        {% else %}
+                        justify-content-end
+                    {% endif %}">
+                    {% if not post_list %}
+                        Здесь пока пусто, добавьте новость первыми:
+                    {% endif %}  <a href="{% url 'add_post' %}"
+                                    class="btn btn-primary btn-block w-25"
+                                    type="submit">Добавить
+                    новость
+                </a></div>
+                {% endif %}
+                {% for post in post_list %}
+                    <div class="card mb-4">
+                        <img style="max-height: 300px"
+                             src="{{ post.photo.url }}" class="card-img-top"
+                             alt="...">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ post.title }}</h2>
+                            <p class="card-text text-muted h6">{{ post.author }}
+                                | {{ post.created }}  </p>
+
+                            <p class="card-text">{{ post.content|safe|slice:":200" }}</p>
+                            {#                            <a href="{% url 'post_detail' post.slug %}"#}
+                            {#                               class="btn btn-primary">Read More &rarr;</a>#}
+                        </div>
+
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    {% if is_paginated %}
+        <nav aria-label="Page navigation conatiner"></nav>
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}"
+                       class="page-link">&laquo; PREV </a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}"
+                       class="page-link"> NEXT &raquo;</a></li>
+
+            {% endif %}
+        </ul>
+        </nav>
+        </div>
+    {% endif %}
+{% endblock %}
